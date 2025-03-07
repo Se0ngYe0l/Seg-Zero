@@ -66,9 +66,9 @@ pip install matplotlib
 ```bash
 python inference_scripts/infer.py
 ```
-You will get the thinking process in command line:
+You will get the thinking process in command line, like:
 
-**The object in question is a bicycle with watermelon wheels. The watermelon wheels are the most unusual part of the bicycle, as they are not typical bicycle wheels. The bicycle itself is a common object, but the watermelon wheels make it stand out.**
+> The object in question is a bicycle with watermelon wheels. The watermelon wheels are the most unusual part of the bicycle, as they are not typical bicycle wheels. The bicycle itself is a common object, but the watermelon wheels make it stand out.
 
 And the mask will be presented in **inference_scripts** folder. 
 
@@ -88,6 +88,11 @@ python inference_scripts/infer.py --image_path "your_image_path" --text "your qu
 
 ```bash
 bash training_scripts/run_qwen2_5_3b_refCOCOg.sh
+```
+You can try change the following hyper-parameters if you have a large GPU memory.
+```bash
+worker.actor.micro_batch_size_per_device_for_update=4 or 8 or 16 \
+worker.actor.micro_batch_size_per_device_for_experience=4 or 8 or 16 \
 ```
 
 ### 2. Merge Checkpoint in Hugging Face Format
