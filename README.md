@@ -70,7 +70,7 @@ You will get the thinking process in command line:
 
 **The object in question is a bicycle with watermelon wheels. The watermelon wheels are the most unusual part of the bicycle, as they are not typical bicycle wheels. The bicycle itself is a common object, but the watermelon wheels make it stand out.**
 
-And the mask is shown in **inference_scripts** folder. 
+And the mask will be presented in **inference_scripts** folder. 
 
 <div align=center>
 <img width="98%" src="assets/test_output.png"/>
@@ -117,7 +117,7 @@ Seg-Zero generates several samples, calculates the rewards and then optimizes to
 ```bibtex
 @misc{liu2025segzero,
   title        = {Seg-Zero: Reasoning-Chain Guided  Segmentation via Cognitive Reinforcement},
-  author       = {Liu, Yuqi and Peng, Bohao and Zhong, Zhisheng and Yue, Zihao and Yu, Bei and Jia, Jiaya},
+  author       = {Liu, Yuqi and Peng, Bohao and Zhong, Zhisheng and Yue, Zihao and Lu, Fanbin and Yu, Bei and Jia, Jiaya},
   howpublished = {\url{https://github.com/dvlab-research/Seg-Zero}},
   year         = {2025}
 }
