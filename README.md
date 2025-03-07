@@ -2,7 +2,7 @@
 
 Data: [🤗 RefCOCOg-2K](https://huggingface.co/datasets/Ricky06662/refCOCOg_2k_840) 
 
-Model: [🤗 Seg-Zero-3B](https://huggingface.co/Ricky06662/Seg-Zero-3B)
+Model: [🤗 Seg-Zero-7B](https://huggingface.co/Ricky06662/Seg-Zero-7B)
  
 Overview of Seg-Zero:
 
@@ -68,7 +68,7 @@ python inference_scripts/infer.py
 ```
 You will get the thinking process in command line, like:
 
-> The object in question is a bicycle with watermelon wheels. The watermelon wheels are the most unusual part of the bicycle, as they are not typical bicycle wheels. The bicycle itself is a common object, but the watermelon wheels make it stand out.
+> The image shows a bicycle with wheels that have been replaced with large, round objects resembling watermelon slices. The unusual aspect of the image is the substitution of the bicycle wheels with these watermelon-like objects, which is not a typical feature of a bicycle. The rest of the bicycle appears to be a standard design, but the wheels are the focal point of the image.
 
 And the mask will be presented in **inference_scripts** folder. 
 
