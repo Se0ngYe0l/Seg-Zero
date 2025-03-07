@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--reasoning_model_path", type=str, default="Ricky06662/Seg-Zero-3B")
+    parser.add_argument("--segmentation_model_path", type=str, default="facebook/sam2-hiera-large")
     parser.add_argument("--text", type=str, default="the unusal object in the image")
     parser.add_argument("--image_path", type=str, default="./assets/test_image.png")
     parser.add_argument("--output_path", type=str, default="./inference_scripts/test_output.png")
