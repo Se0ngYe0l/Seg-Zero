@@ -66,10 +66,21 @@ pip install matplotlib
 ```bash
 python inference_scripts/infer.py
 ```
+You will get the thinking process in command line:
+
+**The object in question is a bicycle with watermelon wheels. The watermelon wheels are the most unusual part of the bicycle, as they are not typical bicycle wheels. The bicycle itself is a common object, but the watermelon wheels make it stand out.**
+
+And the mask is shown in **inference_scripts** folder. 
+
+<div align=center>
+<img width="98%" src="assets/test_output.png"/>
+</div>
+
 You can also provide your own image_path and text by:
 ```bash
 python inference_scripts/infer.py --image_path "your_image_path" --text "your question text"
 ```
+
 
 ## Training
 
@@ -116,4 +127,9 @@ Seg-Zero generates several samples, calculates the rewards and then optimizes to
 We would like to thank the following repos for their great work: 
 
 - This work is built upon the [EasyR1](https://github.com/hiyouga/EasyR1) and [veRL](https://github.com/volcengine/verl).
-- This work utilizes models from  [Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct), [Qwen2.5-VL](https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct) and [SAM2](https://huggingface.co/facebook/sam2-hiera-large).
+- This work utilizes models from  [Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct), [Qwen2.5-VL](https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct) and [SAM2](https://huggingface.co/facebook/sam2-hiera-large). 
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=dvlab-research/Seg-Zero&type=Date)](https://star-history.com/#dvlab-research/Seg-Zero&Date)
