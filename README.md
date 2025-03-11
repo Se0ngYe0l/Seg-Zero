@@ -1,9 +1,10 @@
 # Seg-Zero: Reasoning-Chain Guided  Segmentation via Cognitive Reinforcement
 
-Data: [🤗 RefCOCOg-2K](https://huggingface.co/datasets/Ricky06662/refCOCOg_2k_840) 
-
+Paper: [Seg-Zero](https://arxiv.org/abs/2503.06520)   
+Discussion: [🤗 Seg-Zero](https://huggingface.co/papers/2503.06520)  
+Data: [🤗 RefCOCOg-2K](https://huggingface.co/datasets/Ricky06662/refCOCOg_2k_840)   
 Model: [🤗 Seg-Zero-7B](https://huggingface.co/Ricky06662/Seg-Zero-7B)
- 
+
 Overview of Seg-Zero:
 
 <div align=center>
@@ -19,7 +20,9 @@ Seg-Zero demonstrates following features:
 
 
 ## News
-[March 8th, 2024] 🔥 Seg-Zero is coming! We have released the code and training data. Paper is comming soon.
+
+[March 11th, 2025] 🔥 [Paper](https://arxiv.org/abs/2503.06520) is coming!   
+[March 8th, 2025] 🔥 Seg-Zero is coming! We have released the code and training data.
 
 
 ## Contents
@@ -66,9 +69,12 @@ pip install matplotlib
 ```bash
 python inference_scripts/infer.py
 ```
+The default question is 
+> "the unusal object in the image."
+
 You will get the thinking process in command line, like:
 
-> The image shows a bicycle with wheels that have been replaced with large, round objects resembling watermelon slices. The unusual aspect of the image is the substitution of the bicycle wheels with these watermelon-like objects, which is not a typical feature of a bicycle. The rest of the bicycle appears to be a standard design, but the wheels are the focal point of the image.
+> "The image shows a bicycle with wheels that have been replaced with large, round objects resembling watermelon slices. The unusual aspect of the image is the substitution of the bicycle wheels with these watermelon-like objects, which is not a typical feature of a bicycle. The rest of the bicycle appears to be a standard design, but the wheels are the focal point of the image."
 
 And the mask will be presented in **inference_scripts** folder. 
 
@@ -93,6 +99,12 @@ You can try change the following hyper-parameters if you have a large GPU memory
 ```bash
 worker.actor.micro_batch_size_per_device_for_update=4 or 8 or 16 \
 worker.actor.micro_batch_size_per_device_for_experience=4 or 8 or 16 \
+```
+If your GPU has less memory, you can change the following config. The number is depend on your GPU memory.
+```bash
+worker.rollout.tensor_parallel_size=[your number between 1-8]
+worker.rollout.gpu_memory_utilization=[your number between 0-1]
+worker.rollout.n=[your number between 4-32]
 ```
 
 ### 2. Merge Checkpoint in Hugging Face Format
@@ -120,13 +132,20 @@ Seg-Zero generates several samples, calculates the rewards and then optimizes to
 ## Citation
 
 ```bibtex
-@misc{liu2025segzero,
+@article{liu2025segzero,
+  title        = {Seg-Zero: Reasoning-Chain Guided  Segmentation via Cognitive Reinforcement},
+  author       = {Liu, Yuqi and Peng, Bohao and Zhong, Zhisheng and Yue, Zihao and Lu, Fanbin and Yu, Bei and Jia, Jiaya},
+  journal      = {arXiv preprint arXiv:2503.06520},
+  year         = {2025}
+}
+
+```
+<!-- @misc{liu2025segzero,
   title        = {Seg-Zero: Reasoning-Chain Guided  Segmentation via Cognitive Reinforcement},
   author       = {Liu, Yuqi and Peng, Bohao and Zhong, Zhisheng and Yue, Zihao and Lu, Fanbin and Yu, Bei and Jia, Jiaya},
   howpublished = {\url{https://github.com/dvlab-research/Seg-Zero}},
   year         = {2025}
-}
-```
+} -->
 
 ## Acknowledgement
 We would like to thank the following repos for their great work: 
