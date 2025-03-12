@@ -1,7 +1,7 @@
 # Seg-Zero: Reasoning-Chain Guided  Segmentation via Cognitive Reinforcement
 
-Paper: [Seg-Zero](https://arxiv.org/abs/2503.06520)   
-Discussion: [🤗 Seg-Zero](https://huggingface.co/papers/2503.06520)  
+Paper: [📖 Seg-Zero](https://arxiv.org/abs/2503.06520)   
+HuggingFace Daily: [🤗 Seg-Zero](https://huggingface.co/papers/2503.06520)  
 Data: [🤗 RefCOCOg-2K](https://huggingface.co/datasets/Ricky06662/refCOCOg_2k_840)   
 Model: [🤗 Seg-Zero-7B](https://huggingface.co/Ricky06662/Seg-Zero-7B)
 
@@ -16,7 +16,10 @@ Seg-Zero demonstrates following features:
 2. Seg-Zero is trained exclusively using reinforcement learning, without any explicit supervised reasoning data.
 3. Compared to supervised fine-tuning, our Seg-Zero achieves superior performance on both in-domain and out-of-domain data.
 
-
+**Highlight Code Features**:
+1. This code is based on the [EasyR1](https://github.com/hiyouga/EasyR1) and [veRL](https://github.com/volcengine/verl), which supports model split during sampling and is more GPU memory friendly.
+2. Supporting both Qwen2-VL and Qwen2.5-VL series models.
+3. Already implementing commonly used rewards in Object Detection and Object Segmentation, including IoU reward and L1 reward. 
 
 
 ## News
