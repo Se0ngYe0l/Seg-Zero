@@ -2,8 +2,8 @@
 
 Paper: [📖 Seg-Zero](https://arxiv.org/abs/2503.06520)   
 HuggingFace Daily: [🤗 Seg-Zero](https://huggingface.co/papers/2503.06520)  
-Data: [🤗 RefCOCOg-2K](https://huggingface.co/datasets/Ricky06662/refCOCOg_2k_840)   [🤗 RefCOCOg-9K](https://huggingface.co/datasets/Ricky06662/refCOCOg_9k_840)   
-Model: [🤗 Seg-Zero-7B](https://huggingface.co/Ricky06662/Seg-Zero-7B)
+Data: [🤗 RefCOCOg-2K](https://huggingface.co/datasets/Ricky06662/refCOCOg_2k_840)   [🤗 RefCOCOg-9K](https://huggingface.co/datasets/Ricky06662/refCOCOg_9k_840)   [🤗 ReasonSeg-Test](https://huggingface.co/datasets/Ricky06662/ReasonSeg_test)  [🤗 ReasonSeg-Val](https://huggingface.co/datasets/Ricky06662/ReasonSeg_val)    
+Model: [🤗 Seg-Zero-7B](https://huggingface.co/Ricky06662/Seg-Zero-7B)   [🤗 Seg-Zero-7B-Best-on-ReasonSeg-Test](https://huggingface.co/Ricky06662/Seg-Zero-7B-Best-on-ReasonSegTest)
 
 Overview of Seg-Zero:
 
@@ -33,6 +33,7 @@ Seg-Zero demonstrates following features:
 - [Examples](#examples)
 - [Installation](#installation)
 - [Inference](#inference)
+- [Evaluation](#evaluation)
 - [Training](#training)
 - [Citation](#citation)
 - [Acknowledgement](#acknowledgement)
@@ -90,6 +91,18 @@ You can also provide your own image_path and text by:
 python inference_scripts/infer.py --image_path "your_image_path" --text "your question text"
 ```
 
+## Evaluation  
+
+```bash
+bash evaluation_scripts/eval_reasonseg.sh
+```  
+Adjusting '--batch_size' in the bash scripts based on your GPU. And you will see the gIoU and cIoU in your command line.  
+<div align=center>
+<img width="98%" src="assets/evaluation_results.png"/>
+</div>    
+
+> [!NOTE]
+> The best performance on different datasets is achieved using different checkpoints. We release the best performing checkpoint on ReasonSeg-test, and the best results on ReasonSeg-val is using another checkpoint.    
 
 ## Training
 

@@ -175,3 +175,4 @@ outputs/
 checkpoints/
 wandb/
 workdir
+reasonseg_eval_results
