@@ -82,6 +82,7 @@ def main():
     
     
     image = PILImage.open(args.image_path)
+    image = image.convert("RGB")
     original_width, original_height = image.size
     resize_size = 840
     x_factor, y_factor = original_width/resize_size, original_height/resize_size
