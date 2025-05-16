@@ -4,14 +4,13 @@ from sam2.sam2_image_predictor import SAM2ImagePredictor
 from qwen_vl_utils import process_vision_info
 import torch
 import json
+from datasets import load_from_disk, load_dataset
 from PIL import Image as PILImage
 from tqdm import tqdm
+import pdb
 import os
 import re
 import numpy as np
-
-from utils.dataset import ValDataset
-from torchvision.transforms.functional import to_pil_image
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -78,24 +77,15 @@ def main():
     
     resize_size = 840
     # dataset = load_from_disk(args.test_data_path)['test']
-    
-    val_dataset = ValDataset(
-    "/mnt/e/Task_Infer_VLM/VLM_dataset/",   
-    'RoboRefit|testA',   
-    1024,    
-    )
-        
-    dataset = torch.utils.data.DataLoader(
-            val_dataset,
-            batch_size=1,
-            shuffle=False,
-            pin_memory=False,
-        )
-    
-    total_len = len(val_dataset)
+    dataset = load_dataset(args.test_data_path, split='test')
+    total_len = len(dataset)
     part_size = total_len // args.num_parts
     start_idx = args.idx * part_size
     end_idx = start_idx + part_size if args.idx < args.num_parts - 1 else total_len
+    
+    # pdb.set_trace()
+    dataset = dataset.select(range(start_idx, end_idx))
+    
     
     QUESTION_TEMPLATE = \
         "Please find '{Question}' with bbox and points." \
@@ -107,33 +97,29 @@ def main():
     
     messages = []
     id_list = []
-    print("load dataset")
-    for item in tqdm(dataset):
-        image, sentence, mask, image_id, ann_id, w, h = item
-        #print(image_id, ann_id, w, h)
-        #print(list(sentence[0])[0])
+    for item in dataset:
         message = [{
             "role": "user",
             "content": [
                 {
                     "type": "image", 
-                    "image": to_pil_image(image[0].permute(2,0,1)).resize((resize_size, resize_size), PILImage.BILINEAR)
+                    "image": item["image"].resize((resize_size, resize_size), PILImage.BILINEAR)
                 },
                 {   
                     "type": "text",
-                    "text": QUESTION_TEMPLATE.format(Question=list(sentence[0])[0].lower().strip("."), 
+                    "text": QUESTION_TEMPLATE.format(Question=item["text"].lower().strip("."), 
                                                       Answer="{'bbox': [10,100,200,210], 'points_1': [30,110], 'points_2': [35,180]}")
                 }
             ]
         }]
         messages.append(message)
         id_list.append({
-            "image_id": image_id.item(),
-            "ann_id": ann_id.item(),
-            "image": to_pil_image(image[0].permute(2,0,1)),
-            "mask": mask,
-            "img_height": h.item(),
-            "img_width": w.item()
+            "image_id": item["image_id"],
+            "ann_id": item["ann_id"],
+            "image": item["image"],
+            "mask": item["mask"],
+            "img_height": item["img_height"],
+            "img_width": item["img_width"]
         })
 
     all_outputs = []
@@ -182,27 +168,6 @@ def main():
                     sorted_ind = np.argsort(scores)[::-1]
                     masks = masks[sorted_ind]
                     mask = masks[0].astype(bool)
-                    #################
-                    '''
-                    import matplotlib.pyplot as plt
-                    plt.figure(figsize=(8, 4))
-                    plt.subplot(1, 2, 1)
-                    plt.imshow(batch_id_list[id_idx]["image"])
-                    plt.title('Original Image')
-                        
-                    plt.subplot(1, 2, 2)
-                    plt.imshow(batch_id_list[id_idx]["image"], alpha=0.6)
-                    mask_overlay = np.zeros_like(batch_id_list[id_idx]["image"])
-                    mask_overlay[mask == 1] = [255, 0, 0]
-                    plt.imshow(mask_overlay, alpha=0.4)
-                    plt.title('Image with Predicted Mask')
-                    plt.show()
-                        
-                    plt.tight_layout()
-                    plt.savefig(args.output_path)
-                    plt.close()
-                    '''
-                    #################
                     gt_mask = np.array(batch_id_list[id_idx]["mask"])
                     # pdb.set_trace()
                     try:
@@ -215,7 +180,7 @@ def main():
                     think = ""
                     intersection = 0
                     union = np.array(batch_id_list[id_idx]["mask"]).sum()
-                print(intersection, union, intersection / union)
+                
                 all_outputs.append({
                     "image_id": batch_id_list[id_idx]["image_id"],
                     "ann_id": batch_id_list[id_idx]["ann_id"],
@@ -223,7 +188,7 @@ def main():
                     "intersection": int(intersection),
                     "union": int(union)
                 })
-        #print(f"Processed batch {i//args.batch_size + 1}/{(len(messages) + args.batch_size - 1)//args.batch_size}")
+        print(f"Processed batch {i//args.batch_size + 1}/{(len(messages) + args.batch_size - 1)//args.batch_size}")
         
         # clean GPU memory
         del inputs, generated_ids, generated_ids_trimmed
